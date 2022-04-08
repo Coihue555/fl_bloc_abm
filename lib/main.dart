@@ -10,16 +10,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [ BlocProvider(create: ( _ )=> SportsBloc() ) ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Deportes',
-        initialRoute: 'Home',
-        routes: {
-          'Home'  : ( _ ) => const HomeScreen(),
-          'Ficha' : ( _ ) => FichaScreen(),
-        }
-      ),
+      providers: [BlocProvider(create: (_) => SportsBloc())],
+      child: Builder(builder: (context) {
+        context.read<SportsBloc>().add(GetSportsList());
+        return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Deportes',
+            initialRoute: 'Home',
+            routes: {
+              'Home': (_) => const HomeScreen(),
+              'Ficha': (_) => FichaScreen(),
+            });
+      }),
     );
   }
 }

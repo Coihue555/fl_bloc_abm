@@ -14,10 +14,6 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
     on<UpdateSport>(_updateSport);
     on<ValidateSport>(_validateSport);
     on<DeleteSport>(_deleteSport);
-
-    
-    
-    
   }
   Future<void> _guardarSport(GuardarSport event, Emitter emit) async {
     emit(state.copyWith(
@@ -30,8 +26,7 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
     // final int idSport = (state.accion == 'GuardarSport')
     //                     ? await DBProvider.db.nuevoDato(state.sport)
     //                     : await DBProvider.db.updateDato(state.sport);
-    final int idSport =  await DBProvider.db.nuevoDato(state.sport);
-   
+    final int idSport = await DBProvider.db.nuevoDato(state.sport);
 
     String error = '';
     List<SportsModel> lista = state.lista;
@@ -105,17 +100,15 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
   }
 
   Future<void> _deleteSport(DeleteSport event, Emitter emit) async {
-    emit(state.copyWith(
-      isWorking: true,
-      accion: 'DeleteSport',
-      error: ''
-      ));
+    emit(state.copyWith(isWorking: true, accion: 'DeleteSport', error: ''));
     await DBProvider.db.deleteDato(event.id);
 
+    // final List<SportsModel> lst = await DBProvider.db.getTodos();
+
     emit(state.copyWith(
-        isWorking: false, accion: 'UpdateSport', error: ''));
+        isWorking: false,
+        accion: 'DeleteSport',
+        lista: state.lista.where((e) => e.id != event.id).toList(),
+        error: ''));
   }
-
-
-
 }

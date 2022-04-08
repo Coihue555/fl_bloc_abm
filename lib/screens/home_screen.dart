@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                                 color: Colors.red,
                               ),
                     onDismissed: (DismissDirection direction) {
-                                //context.read<SportsBloc>().add(DeleteSport(state.lista[i].id!));
+                                context.read<SportsBloc>().add(DeleteSport(state.lista[i].id!));
                               },
                     child: ListTile(
                               leading: const Icon(Icons.sports_baseball_outlined, color: Colors.blue),
