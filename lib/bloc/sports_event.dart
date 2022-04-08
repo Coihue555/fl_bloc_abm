@@ -5,43 +5,31 @@ abstract class SportsEvent {
   
 }
 
-class ActivateSports extends SportsEvent{
-  
-
-  ActivateSports();
-}
-
 class GetSportsList extends SportsEvent{
-  
-  
   GetSportsList();
 }
 
 class NewSport extends SportsEvent{
-  final String nombre;
-  final String descripcion;
-  
-  NewSport(this.nombre, this.descripcion);
-}
-
-class SaveSport extends SportsEvent{
-  
-  SaveSport();
+NewSport();
 }
 
 class UpdateSport extends SportsEvent{
-  final String nombre;
-  final String descripcion;
-  
-  UpdateSport(this.nombre, this.descripcion);
+  final int id;
+  UpdateSport(this.id);
+}
+
+class GuardarSport extends SportsEvent{
+  GuardarSport();
 }
 
 class ValidateSport extends SportsEvent{
+  final String nombre;
+  final String descripcion;
   
-  ValidateSport();
+  ValidateSport(this.nombre, this.descripcion);
 }
 
 class DeleteSport extends SportsEvent{
-  
-  DeleteSport();
+  final int id;
+  DeleteSport(this.id);
 }

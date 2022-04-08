@@ -1,29 +1,33 @@
 part of 'sports_bloc.dart';
 
 @immutable
-abstract class SportsState {
+class SportsState {
   final bool isWorking;
-  final SportsModel? sport;
-  final List<SportsModel>? lista;
+  final SportsModel sport;
+  final List<SportsModel> lista;
   final String error;
   final String accion;
 
-  const SportsState({
-    this.isWorking = false,
-    this.sport,
-    this.lista,
-    this.error = '',
-    this.accion = ''
-  });
+  SportsState(
+      {this.isWorking = false,
+      SportsModel? sport,
+      List<SportsModel>? lista,
+      this.error = '',
+      this.accion = ''})
+      : lista = lista ?? [],
+        sport = sport ?? SportsModel();
 
-}
-
-class SportsInitial extends SportsState {
-  const SportsInitial() :super( sport: null, isWorking: false, lista: const [], error: '', accion: '');
-}
-
-class SportSetState extends SportsState{
-  final SportsModel newSport;
-
-  const SportSetState(this.newSport):super(sport: newSport);
+  SportsState copyWith({
+    final bool? isWorking,
+    final SportsModel? sport,
+    final List<SportsModel>? lista,
+    final String? error,
+    final String? accion,
+  }) =>
+      SportsState(
+          isWorking: isWorking ?? this.isWorking,
+          sport: sport ?? this.sport,
+          lista: lista ?? this.lista,
+          error: error ?? this.error,
+          accion: accion ?? this.accion);
 }

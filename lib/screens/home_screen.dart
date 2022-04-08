@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fl_bloc_abm/bloc/sports_bloc.dart';
 
-
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -13,14 +11,33 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Lista de Deportes'),
       ),
-      body: 
-      BlocBuilder<SportsBloc, SportsState>(
-        builder: (context, state){
-          return state.lista == null
-          ? Container(     height: 300,     width: 300,       color: Colors.red,  )
-          : const Center(
-            child: Text('No hay deporte cargado aun'),
-          );
+      body: BlocConsumer<SportsBloc, SportsState>(
+        listenWhen: (previous, current) => !current.isWorking,
+        listener: (context, state) {
+          if (state.accion == 'NewSport' || state.accion == 'UpdateSport') {
+            Navigator.pushNamed(context, 'Ficha');
+          }
+          if (state.error.isNotEmpty) {
+            ///TODO mostrar notificacion
+            print(state.error);
+          }
+          if (state.accion == 'ValidateSport' && state.error.isEmpty) {
+            context.read<SportsBloc>().add(GuardarSport());
+          }
+        },
+        builder: (context, state) {
+          return state.lista.isNotEmpty
+              ? Container(
+                  height: 300,
+                  width: 300,
+                  color: Colors.red,
+                  child: ListView(
+                      children:
+                          state.lista.map((e) => Text(e.nombre)).toList()),
+                )
+              : const Center(
+                  child: Text('No hay deporte cargado aun'),
+                );
         },
       ),
       // Container(
@@ -30,9 +47,8 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushReplacementNamed(context, 'Ficha');
+          context.read<SportsBloc>().add(NewSport());
         },
-
       ),
     );
   }
