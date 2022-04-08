@@ -64,7 +64,10 @@ class _FichaScreenState extends State<FichaScreen> {
                             }),
                       ],
                     ),
-                  )))),
+                  )
+                )
+            )
+          ),
     );
   }
 }

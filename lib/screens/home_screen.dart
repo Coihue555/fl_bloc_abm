@@ -43,6 +43,7 @@ class HomeScreen extends StatelessWidget {
                               subtitle: Text(state.lista[i].descripcion.toString(),),
                               trailing: const Icon(Icons.chevron_right),
                               onTap: () {
+                                context.read<SportsBloc>().add(UpdateSport(state.lista[i].id!));
                                 //context.read<SportsBloc>().add(UpdateSport(state.lista[i].id!));
                               }
                             ),
