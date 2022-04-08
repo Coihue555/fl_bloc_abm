@@ -9,6 +9,16 @@ class SportsModel {
     this.descripcion = ''
   });
 
+    SportsModel copyWith({
+    int? id,
+    String? nombre,
+    String? descripcion,
+    }) => SportsModel(
+      id: id ?? this.id,
+      nombre: nombre ?? this.nombre,
+      descripcion: descripcion ?? this.descripcion
+    );
+
   factory SportsModel.fromJson(Map<String, dynamic> json) => SportsModel(
         id: json["id"],
         nombre: json["nombre"],

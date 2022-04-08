@@ -11,19 +11,29 @@ class ActivateSports extends SportsEvent{
   ActivateSports();
 }
 
-class GetSports extends SportsEvent{
+class GetSportsList extends SportsEvent{
   
-  GetSports();
+  
+  GetSportsList();
 }
 
 class NewSport extends SportsEvent{
+  final String nombre;
+  final String descripcion;
   
-  NewSport();
+  NewSport(this.nombre, this.descripcion);
+}
+
+class SaveSport extends SportsEvent{
+  
+  SaveSport();
 }
 
 class UpdateSport extends SportsEvent{
+  final String nombre;
+  final String descripcion;
   
-  UpdateSport();
+  UpdateSport(this.nombre, this.descripcion);
 }
 
 class ValidateSport extends SportsEvent{

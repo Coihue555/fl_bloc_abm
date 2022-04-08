@@ -1,4 +1,6 @@
+import 'package:fl_bloc_abm/bloc/sports_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SportsListTiles extends StatefulWidget {
 
@@ -9,6 +11,9 @@ class SportsListTiles extends StatefulWidget {
 class _SportsListTilesState extends State<SportsListTiles> {
   @override
   Widget build(BuildContext context) {
+
+    final sportList = BlocProvider.of<SportsBloc>(context);
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -18,6 +23,7 @@ class _SportsListTilesState extends State<SportsListTiles> {
               margin: const EdgeInsets.only(top: 20),
               width: double.infinity,
               child: Container()
+              
             )
           ),
           FloatingActionButton(

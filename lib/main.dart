@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       providers: [ BlocProvider(create: ( _ )=> SportsBloc() ) ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Actividades Fisicas',
+        title: 'Deportes Fisicas',
         initialRoute: 'Home',
         routes: {
           'Home'  : ( _ ) => const HomeScreen(),

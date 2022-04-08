@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
+import 'package:fl_bloc_abm/bloc/sports_bloc.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FichaScreen extends StatefulWidget {
   @override
@@ -11,6 +11,10 @@ class FichaScreen extends StatefulWidget {
 class _FichaScreenState extends State<FichaScreen> {
   @override
   Widget build(BuildContext context) {
+
+    final sportBloc = BlocProvider.of<SportsBloc>(context);
+    String spNombre = '';
+    String spDescripcion = '';
 
     return Scaffold(
         appBar: AppBar(
@@ -29,7 +33,7 @@ class _FichaScreenState extends State<FichaScreen> {
                         ),
                         initialValue:'',
                         onChanged: (value) {
-
+                          spNombre = value;
                         },
                       ),
                       const SizedBox(
@@ -41,7 +45,7 @@ class _FichaScreenState extends State<FichaScreen> {
                         ),
                         initialValue:'',
                         onChanged: (value) {
-                          
+                          spDescripcion = value;
                         },
                       ),
                       
@@ -51,6 +55,7 @@ class _FichaScreenState extends State<FichaScreen> {
                               width: double.infinity,
                               child: Center(child: Text('Guardar'))),
                           onPressed: () {
+                            sportBloc.add(NewSport(spNombre, spDescripcion));
                             Navigator.pushReplacementNamed(context, 'Home');
                             
                           }),
