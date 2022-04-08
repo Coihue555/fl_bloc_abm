@@ -13,6 +13,11 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
     on<GuardarSport>(_guardarSport);
     on<UpdateSport>(_updateSport);
     on<ValidateSport>(_validateSport);
+    on<DeleteSport>(_deleteSport);
+
+    
+    
+    
   }
   Future<void> _guardarSport(GuardarSport event, Emitter emit) async {
     emit(state.copyWith(
@@ -20,14 +25,17 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
       error: '',
       accion: 'GuardarSport',
     ));
-    //Nuevo
-    final int idSport = await DBProvider.db.nuevoDato(state.sport);
 
-    //Modificacion
-    // final int idSport = await DBProvider.db.updateItem(state.sport);
+    //Guardar nuevo o Modificacion
+    // final int idSport = (state.accion == 'GuardarSport')
+    //                     ? await DBProvider.db.nuevoDato(state.sport)
+    //                     : await DBProvider.db.updateDato(state.sport);
+    final int idSport =  await DBProvider.db.nuevoDato(state.sport);
+   
 
     String error = '';
     List<SportsModel> lista = state.lista;
+
     if (idSport < 1) {
       error = 'No se pudo guardar el registro';
     }
@@ -95,4 +103,19 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
       error: error,
     ));
   }
+
+  Future<void> _deleteSport(DeleteSport event, Emitter emit) async {
+    emit(state.copyWith(
+      isWorking: true,
+      accion: 'DeleteSport',
+      error: ''
+      ));
+    await DBProvider.db.deleteDato(event.id);
+
+    emit(state.copyWith(
+        isWorking: false, accion: 'UpdateSport', error: ''));
+  }
+
+
+
 }

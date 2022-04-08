@@ -23,7 +23,7 @@ class DBProvider {
 
   Future<dynamic> initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, 'SportsDB.db');
+    final path = join(documentsDirectory.path, 'test1DB.db');
 
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
@@ -94,34 +94,6 @@ class DBProvider {
     return res;
   }
 
-  Future<int> updateItem(int id, String nombre, String? descripcion, int edadMin, int edadMax) async {
-    final db = await database;
-
-    final data = {
-      'nombre': nombre,
-      'descripcion': descripcion,
-    };
-
-    final result =
-        await db!.update('Deportes', data, where: "id = ?", whereArgs: [id]);
-    return result;
-  }
-
-  Future<SportsModel?> getScansById(int id) async {
-    final db = await database;
-    final res = await db!.query('Deportes', where: 'id = ?', whereArgs: [id]);
-
-    return res.isNotEmpty ? SportsModel.fromJson(res.first) : null;
-  }
-
-  Future<int> updateScan(SportsModel nuevoScan) async {
-    final db = await database;
-    final res = await db!.update('Deportes', nuevoScan.toJson(),
-        where: 'id = ?', whereArgs: [nuevoScan.id]);
-
-    return res;
-  }
-
   Future<int> deleteDato(int id) async {
     final db = await database;
     final res = await db!.delete('Deportes', where: 'id = ?', whereArgs: [id]);
@@ -133,4 +105,5 @@ class DBProvider {
     final res = await db!.delete('Deportes');
     return res;
   }
+  
 }
