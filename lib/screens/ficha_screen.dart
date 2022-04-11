@@ -32,41 +32,41 @@ class _FichaScreenState extends State<FichaScreen> {
                   child: BlocBuilder<SportsBloc, SportsState>(
                     builder: (context, state) {
                       return Form(
-                                      child: Column(
-                                        children: [
-                                          TextFormField(
-                                            decoration: const InputDecoration(
-                                              labelText: 'Nombre de la actividad',
-                                            ),
-                                            initialValue: state.sport.nombre,
-                                            onChanged: (value) {
-                                              spNombre = value;
-                                            },
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          TextFormField(
-                                            decoration: const InputDecoration(
-                                              labelText: 'Descripcion',
-                                            ),
-                                            initialValue: state.sport.descripcion,
-                                            onChanged: (value) {
-                                              spDescripcion = value;
-                                            },
-                                          ),
-                                          ElevatedButton(
-                                              child: const SizedBox(
-                                                  width: double.infinity,
-                                                  child: Center(child: Text('Guardar'))),
-                                              onPressed: () {
-                                                context
-                                                    .read<SportsBloc>()
-                                                    .add(ValidateSport(spNombre, spDescripcion));
-                                              }),
-                                        ],
+                                child: Column(
+                                  children: [
+                                    TextFormField(
+                                      decoration: const InputDecoration(
+                                        labelText: 'Nombre de la actividad',
                                       ),
-                                    );
+                                      initialValue: state.sport.nombre,
+                                      onChanged: (value) {
+                                        spNombre = value;
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextFormField(
+                                      decoration: const InputDecoration(
+                                        labelText: 'Descripcion',
+                                      ),
+                                      initialValue: state.sport.descripcion,
+                                      onChanged: ( value) {
+                                        spDescripcion = value;
+                                      },
+                                    ),
+                                    ElevatedButton(
+                                        child: const SizedBox(
+                                            width: double.infinity,
+                                            child: Center(child: Text('Guardar'))),
+                                        onPressed: () {
+                                          context
+                                              .read<SportsBloc>()
+                                              .add(ValidateSport(spNombre, spDescripcion));
+                                        }),
+                                  ],
+                                ),
+                              );
                     },
                   )
                 )

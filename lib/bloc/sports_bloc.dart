@@ -16,15 +16,10 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
     on<DeleteSport>(_deleteSport);
   }
   Future<void> _guardarSport(GuardarSport event, Emitter emit) async {
-    emit(state.copyWith(
-      isWorking: true,
-      error: '',
-      accion: 'GuardarSport',
-    ));
+    emit(state.copyWith( isWorking: true, error: '', accion: 'GuardarSport', ));
 
     //Guardar nuevo o Modificacion
-    // final int idSport = (state.accion == 'GuardarSport')
-    //                     ? await DBProvider.db.nuevoDato(state.sport)
+    // final int idSport = (state.accion == 'GuardarSport') ? await DBProvider.db.nuevoDato(state.sport)
     //                     : await DBProvider.db.updateDato(state.sport);
     final int idSport = await DBProvider.db.nuevoDato(state.sport);
 
@@ -37,12 +32,7 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
     if (error.isEmpty) {
       lista = await DBProvider.db.getTodos();
     }
-    emit(state.copyWith(
-      isWorking: false,
-      accion: 'GuardarSport',
-      error: error,
-      lista: lista,
-    ));
+    emit(state.copyWith( isWorking: false, accion: 'GuardarSport', error: error, lista: lista ));
   }
 
   Future<void> _getSportsList(GetSportsList event, Emitter emit) async {
@@ -69,7 +59,10 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
 
   Future<void> _updateSport(UpdateSport event, Emitter emit) async {
     emit(state.copyWith(isWorking: true, accion: 'UpdateSport', error: ''));
+    
     final SportsModel modelo = await DBProvider.db.getDatosById(event.id);
+    await DBProvider.db.updateDato(SportsModel(nombre: modelo.nombre, descripcion: modelo.descripcion) );
+    
 
     emit(state.copyWith(
         isWorking: false, accion: 'UpdateSport', sport: modelo, error: ''));

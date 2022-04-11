@@ -21,9 +21,9 @@ class HomeScreen extends StatelessWidget {
             ///TODO mostrar notificacion
             print(state.error);
           }
-          if (state.accion == 'ValidateSport' && state.error.isEmpty && state.sport.id != null) {
-            context.read<SportsBloc>().add(UpdateSport(state.sport.id!));
-          }
+          // if (state.accion == 'ValidateSport' && state.error.isEmpty && state.sport.id != null) {
+          //   context.read<SportsBloc>().add(UpdateSport(state.sport.id!));
+          // }
           if (state.accion == 'ValidateSport' && state.error.isEmpty) {
             context.read<SportsBloc>().add(GuardarSport());
           }
