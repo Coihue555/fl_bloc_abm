@@ -19,13 +19,9 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
     emit(state.copyWith( isWorking: true, error: '', accion: 'GuardarSport', ));
 
     //Guardar nuevo o Modificacion
-    // final int idSport = (state.accion == 'GuardarSport') ? await DBProvider.db.nuevoDato(state.sport)
-    //                     : await DBProvider.db.updateDato(state.sport);
-
    final idSport =( state.sport.id == null)
       ?  await DBProvider.db.nuevoDato(state.sport)
       : await DBProvider.db.updateDato(state.sport);
-    //final int idSport = await DBProvider.db.nuevoDato(state.sport);
 
     String error = '';
     List<SportsModel> lista = state.lista;
