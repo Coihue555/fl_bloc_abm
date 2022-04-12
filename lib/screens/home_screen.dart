@@ -42,8 +42,8 @@ class HomeScreen extends StatelessWidget {
                               },
                     child: ListTile(
                               leading: const Icon(Icons.sports_baseball_outlined, color: Colors.blue),
-                              title: Text(state.lista[i].nombre.toString()),
-                              subtitle: Text(state.lista[i].descripcion.toString(),),
+                              title: Text(state.lista[i].nombre),
+                              subtitle: Text(state.lista[i].descripcion,),
                               trailing: const Icon(Icons.chevron_right),
                               onTap: () {
                                 context.read<SportsBloc>().add(UpdateSport(state.lista[i].id!));

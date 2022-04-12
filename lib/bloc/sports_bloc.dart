@@ -21,7 +21,11 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
     //Guardar nuevo o Modificacion
     // final int idSport = (state.accion == 'GuardarSport') ? await DBProvider.db.nuevoDato(state.sport)
     //                     : await DBProvider.db.updateDato(state.sport);
-    final int idSport = await DBProvider.db.nuevoDato(state.sport);
+
+   final idSport =( state.sport.id == null)
+      ?  await DBProvider.db.nuevoDato(state.sport)
+      : await DBProvider.db.updateDato(state.sport);
+    //final int idSport = await DBProvider.db.nuevoDato(state.sport);
 
     String error = '';
     List<SportsModel> lista = state.lista;
@@ -60,9 +64,7 @@ class SportsBloc extends Bloc<SportsEvent, SportsState> {
   Future<void> _updateSport(UpdateSport event, Emitter emit) async {
     emit(state.copyWith(isWorking: true, accion: 'UpdateSport', error: ''));
     
-    final SportsModel modelo = await DBProvider.db.getDatosById(event.id);
-    await DBProvider.db.updateDato(SportsModel(nombre: modelo.nombre, descripcion: modelo.descripcion) );
-    
+    final SportsModel modelo = await DBProvider.db.getDatosById(event.id);    
 
     emit(state.copyWith(
         isWorking: false, accion: 'UpdateSport', sport: modelo, error: ''));
