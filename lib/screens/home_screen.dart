@@ -39,6 +39,14 @@ class HomeScreen extends StatelessWidget {
                               ),
                     onDismissed: (DismissDirection direction) {
                                 context.read<SportsBloc>().add(DeleteSport(state.lista[i].id!));
+                                final snackBar = SnackBar(
+                                              content: const Text('Registro eliminado'),
+                                              action: SnackBarAction(
+                                                label: 'Entendido',
+                                                onPressed: () {  },
+                                              ),
+                                          );
+                                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                               },
                     child: ListTile(
                               leading: const Icon(Icons.sports_baseball_outlined, color: Colors.blue),

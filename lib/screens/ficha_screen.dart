@@ -63,6 +63,14 @@ class _FichaScreenState extends State<FichaScreen> {
                                           context
                                               .read<SportsBloc>()
                                               .add(ValidateSport(spNombre, spDescripcion));
+                                          final snackBar = SnackBar(
+                                              content: const Text('Nuevo registro añadido'),
+                                              action: SnackBarAction(
+                                                label: 'Entendido',
+                                                onPressed: () {  },
+                                              ),
+                                          );
+                                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                         }),
                                   ],
                                 ),
