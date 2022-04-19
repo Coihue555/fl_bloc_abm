@@ -51,26 +51,18 @@ class _FichaScreenState extends State<FichaScreen> {
                                         labelText: 'Descripcion',
                                       ),
                                       initialValue: state.sport.descripcion,
-                                      onChanged: ( value) {
-                                        spDescripcion = value;
-                                      },
+                                      onChanged:( value ) {spDescripcion = value; },
                                     ),
                                     ElevatedButton(
                                         child: const SizedBox(
                                             width: double.infinity,
                                             child: Center(child: Text('Guardar'))),
                                         onPressed: () {
+                                          if(spNombre.isEmpty){spNombre = state.sport.nombre;}
+                                          if(spDescripcion.isEmpty){spDescripcion = state.sport.descripcion;}
                                           context
                                               .read<SportsBloc>()
                                               .add(ValidateSport(spNombre, spDescripcion));
-                                          final snackBar = SnackBar(
-                                              content: const Text('Nuevo registro añadido'),
-                                              action: SnackBarAction(
-                                                label: 'Entendido',
-                                                onPressed: () {  },
-                                              ),
-                                          );
-                                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                         }),
                                   ],
                                 ),
